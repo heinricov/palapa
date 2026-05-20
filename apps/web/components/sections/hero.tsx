@@ -16,7 +16,7 @@ export default function HeroSection() {
     <>
       <main className="overflow-hidden">
         <section className="bg-background">
-          <div className="relative pt-16 pb-32">
+          <div className="relative pt-16 pb-16 md:pb-32">
             <div className="relative z-10 mx-auto w-full max-w-5xl px-6">
               <div className="pointer-events-none relative mx-auto aspect-3/2 max-w-xl mask-radial-from-35% mask-radial-to-75% opacity-75 mix-blend-darken">
                 <div className="absolute inset-0 bg-background mix-blend-overlay"></div>
@@ -30,11 +30,10 @@ export default function HeroSection() {
               </div>
               <div className="mx-auto mt-6 max-w-md text-center">
                 <h1 className="font-mono text-4xl font-medium text-balance sm:text-5xl">
-                  Ship faster. Integrate smarter.
+                  light articles for you to read.
                 </h1>
                 <p className="mt-4 text-balance text-muted-foreground">
-                  Veil is your all-in-one engine for adding seamless
-                  integrations to your app.
+                  find knowledge that broadens your insight here.
                 </p>
 
                 <Button asChild className="mt-6 pr-1.5">

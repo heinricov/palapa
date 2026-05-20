@@ -9,7 +9,7 @@ import { Kbd } from "@workspace/ui/components/kbd"
 
 export function InputSearch() {
   return (
-    <div className="flex w-full max-w-xs flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       <InputGroup>
         <InputGroupInput placeholder="Search..." />
         <InputGroupAddon>

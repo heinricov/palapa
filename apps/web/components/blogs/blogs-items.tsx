@@ -97,7 +97,7 @@ const blogPosts = [
   },
 ]
 
-export default function BlogsSection() {
+export default function BlogsItems() {
   return (
     <div className="mx-auto flex max-w-(--breakpoint-xl) flex-col items-start gap-12 px-6 py-10 lg:flex-row lg:py-16 xl:px-0">
       <div>

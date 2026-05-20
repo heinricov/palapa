@@ -32,13 +32,23 @@ export default function Navbar() {
         <div className="mx-auto max-w-7xl px-6 transition-all duration-300">
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
             <div className="flex w-full items-center justify-between gap-4 lg:w-auto">
-              <Link href="/" aria-label="home" className="">
+              <Link
+                href="/"
+                aria-label="home"
+                className="flex items-center gap-2"
+              >
                 <Image src={microvLogo} alt="Palapa" width={28} height={28} />
+                <span className="font-mono text-2xl font-medium tracking-tight uppercase">
+                  Palapa
+                </span>
               </Link>
-              <div className="lg:hidden">
-                <InputSearch />
-              </div>
               <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                  <FaInstagram />
+                  <FaXTwitter />
+                  <FaSquareFacebook />
+                  <FaLinkedin />
+                </div>
                 <div className="lg:hidden">
                   <ButtonTheme />
                 </div>
