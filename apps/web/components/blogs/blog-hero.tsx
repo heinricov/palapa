@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react"
 
 import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
-import BlogsItems from "./blogs-items"
+import { BlogsItems } from "./blogs-items"
 import BlogCategory from "./blog-category"
+import { blogPosts } from "./dummy-data"
 
 interface Content1Props {
   className?: string
@@ -66,7 +67,13 @@ export default function BlogHero({ className }: Content1Props) {
               className="my-8 aspect-video w-full rounded-md object-cover"
             />
           </div>
-          <BlogsItems />
+          <div className="mx-auto flex max-w-(--breakpoint-xl) flex-col items-start gap-12 px-6 py-10 lg:flex-row lg:py-16 xl:px-0">
+            <div>
+              <div className="flex flex-col gap-8">
+                <BlogsItems blogPosts={blogPosts} />
+              </div>
+            </div>
+          </div>
         </div>
         <BlogCategory />
       </div>
