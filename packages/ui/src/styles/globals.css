@@ -3,9 +3,11 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-@source "../../../apps/**/*.{ts,tsx}";
+@source "../../../../apps/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
+@source "../../../mdx/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
+@source inline("bottom-6 right-4 size-14 z-50 max-lg:flex");
 
 @theme inline {
   --font-heading: var(--font-sans);

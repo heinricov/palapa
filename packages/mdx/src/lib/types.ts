@@ -16,4 +16,5 @@ export interface MdxPostMeta {
 export interface MdxHeading {
   id: string
   text: string
+  level: 1 | 2
 }

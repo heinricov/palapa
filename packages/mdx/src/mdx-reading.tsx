@@ -8,7 +8,7 @@ import {
   getMdxPosts,
 } from "@workspace/mdx/lib/mdx-loader"
 import type { MdxPostMeta } from "@workspace/mdx/lib/types"
-import { MdxAside } from "@workspace/mdx/mdx-aside"
+import { MdxAside, MdxAsideMobile } from "@workspace/mdx/mdx-aside"
 import { MdxBreadcrumb } from "@workspace/mdx/mdx-breadcrumb"
 import { MdxHeader } from "@workspace/mdx/mdx-header"
 import { MdxPagination, MdxPaginationPage } from "@workspace/mdx/mdx-pagination"
@@ -67,6 +67,7 @@ export async function MdxReading({
         </article>
         <MdxAside headings={headings} />
       </div>
+      <MdxAsideMobile headings={headings} />
     </section>
   )
 }

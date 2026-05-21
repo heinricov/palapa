@@ -11,8 +11,16 @@ export function resetMdxHeadingIds() {
 type TypographyProps<T extends keyof HTMLElementTagNameMap> = ComponentPropsWithoutRef<T>
 
 export function TypographyH1({ children, className, ...props }: TypographyProps<"h1">) {
+  const text =
+    typeof children === "string" ? children : String(children ?? "")
+  const id = getUniqueHeadingId(text, headingIds)
+
   return (
-    <h1 className={`mt-8 text-3xl font-extrabold ${className ?? ""}`} {...props}>
+    <h1
+      id={id}
+      className={`mt-8 scroll-mt-24 text-3xl font-extrabold ${className ?? ""}`}
+      {...props}
+    >
       {children}
     </h1>
   )

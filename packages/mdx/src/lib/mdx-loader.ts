@@ -88,12 +88,17 @@ export function getMdxPageHref(basePath: string, page: number) {
 export function extractHeadings(markdown: string): MdxHeading[] {
   const headings: MdxHeading[] = []
   const usedIds = new Map<string, number>()
-  const regex = /^##\s+(.+)$/gm
+  const regex = /^(#{1,2})\s+(.+)$/gm
   let match = regex.exec(markdown)
 
   while (match) {
-    const text = match[1]?.trim() ?? ""
-    headings.push({ text, id: getUniqueHeadingId(text, usedIds) })
+    const level = match[1]?.length === 1 ? 1 : 2
+    const text = match[2]?.trim() ?? ""
+    headings.push({
+      text,
+      id: getUniqueHeadingId(text, usedIds),
+      level,
+    })
     match = regex.exec(markdown)
   }
 
