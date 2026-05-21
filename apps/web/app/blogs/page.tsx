@@ -1,5 +1,5 @@
 import React from "react"
-import { MdxReading } from "@workspace/ui/mdx/mdx-reading"
+import { MdxReading } from "mdx"
 
 export default function page() {
   return (
