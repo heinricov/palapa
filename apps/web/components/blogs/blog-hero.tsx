@@ -5,6 +5,7 @@ import Autoplay from "embla-carousel-autoplay"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -90,10 +91,33 @@ export function CarouselSection({ blogPosts }: { blogPosts: BlogPost[] }) {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   )
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [current, setCurrent] = React.useState(1)
+  const [count, setCount] = React.useState(blogPosts.length)
+
+  React.useEffect(() => {
+    if (!api) return
+
+    const onSelect = () => {
+      setCount(api.scrollSnapList().length)
+      setCurrent(api.selectedScrollSnap() + 1)
+    }
+
+    onSelect()
+    api.on("select", onSelect)
+    api.on("reInit", onSelect)
+
+    return () => {
+      api.off("select", onSelect)
+      api.off("reInit", onSelect)
+    }
+  }, [api])
+
   return (
     <div className="mb-6 border-b pb-2">
       <Carousel
+        setApi={setApi}
+        opts={{ loop: true, align: "start" }}
         plugins={[plugin.current]}
         className="w-full"
         onMouseEnter={plugin.current.stop}
@@ -134,7 +158,7 @@ export function CarouselSection({ blogPosts }: { blogPosts: BlogPost[] }) {
         <CarouselNext className="hidden md:block" />
       </Carousel>
       <div className="text-center text-sm text-muted-foreground">
-        Slide {activeIndex + 1} of {blogPosts.length}
+        Slide {current} of {count}
       </div>
     </div>
   )
