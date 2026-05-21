@@ -70,7 +70,7 @@ export const MdxReading = ({ className }: MdxReadingProps) => {
   }
 
   return (
-    <section className={cn("mx-auto w-full max-w-7xl px-6 py-32", className)}>
+    <section className={cn("mx-auto w-full max-w-7xl px-6 py-18", className)}>
       <MdxBreadcrumb />
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-20 lg:flex-row lg:items-start lg:justify-center">
         <article className="w-full max-w-3xl min-w-0">

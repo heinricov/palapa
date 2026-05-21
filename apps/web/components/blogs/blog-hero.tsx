@@ -67,12 +67,9 @@ export default function BlogHero({ className }: Content1Props) {
               className="my-8 aspect-video w-full rounded-md object-cover"
             />
           </div>
-          <div className="mx-auto flex max-w-(--breakpoint-xl) flex-col items-start gap-12 px-6 py-10 lg:flex-row lg:py-16 xl:px-0">
-            <div>
-              <div className="flex flex-col gap-8">
-                <BlogsItems blogPosts={blogPosts} />
-              </div>
-            </div>
+
+          <div className="flex flex-col gap-8">
+            <BlogsItems blogPosts={blogPosts} />
           </div>
         </div>
         <BlogCategory />
