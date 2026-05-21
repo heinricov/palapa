@@ -5,6 +5,10 @@ import matter from "gray-matter"
 import { compileMDX } from "next-mdx-remote/rsc"
 
 import { resetMdxHeadingIds } from "@workspace/mdx/components-mdx/typograhpy"
+import {
+  mdxMathRehypePlugins,
+  mdxMathRemarkPlugins,
+} from "@workspace/mdx/lib/mdx-math-plugins"
 import { mdxComponents } from "@workspace/mdx/mdx-components"
 import type { MdxHeading, MdxPostFrontmatter, MdxPostMeta } from "@workspace/mdx/lib/types"
 import { getUniqueHeadingId } from "@workspace/mdx/lib/slugify"
@@ -141,6 +145,12 @@ export async function compileMdxContent(markdown: string) {
   const { content } = await compileMDX({
     source: markdown,
     components: mdxComponents,
+    options: {
+      mdxOptions: {
+        remarkPlugins: mdxMathRemarkPlugins,
+        rehypePlugins: mdxMathRehypePlugins,
+      },
+    },
   })
 
   return content
