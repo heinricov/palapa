@@ -25,6 +25,34 @@ function resolveContentDir(targetDir: string) {
   return path.join(process.cwd(), "mdx-content", normalized)
 }
 
+/** Maps `images/foo.jpeg` (under apps/web/images) to `/images/foo.jpeg` (public URL). */
+function resolveMdxImage(image: string): string {
+  if (!image || /^https?:\/\//i.test(image)) return image
+
+  const relative = image.replace(/^\/+/, "")
+  const publicPath = path.join(process.cwd(), "public", relative)
+
+  if (fs.existsSync(publicPath)) {
+    return `/${relative}`
+  }
+
+  const sourcePath = path.join(process.cwd(), relative)
+  if (fs.existsSync(sourcePath)) {
+    return `/${relative}`
+  }
+
+  return image.startsWith("/") ? image : `/${relative}`
+}
+
+function normalizeFrontmatter(frontmatter: MdxPostFrontmatter): MdxPostFrontmatter {
+  return {
+    ...frontmatter,
+    tags: [...new Set(frontmatter.tags ?? [])],
+    date: String(frontmatter.date),
+    image: resolveMdxImage(frontmatter.image),
+  }
+}
+
 export function getMdxSlugs(targetDir: string) {
   const dir = resolveContentDir(targetDir)
   return fs
@@ -45,11 +73,7 @@ export function getMdxPosts(targetDir: string): MdxPostMeta[] {
     return {
       slug,
       link: `${routeBase}/${slug}`,
-      frontmatter: {
-        ...frontmatter,
-        tags: [...new Set(frontmatter.tags ?? [])],
-        date: String(frontmatter.date),
-      },
+      frontmatter: normalizeFrontmatter(frontmatter),
     }
   })
 
@@ -73,11 +97,7 @@ export function getMdxPost(targetDir: string, slug: string) {
     raw,
     content,
     pages: splitMdxPages(content),
-    frontmatter: {
-      ...frontmatter,
-      tags: [...new Set(frontmatter.tags ?? [])],
-      date: String(frontmatter.date),
-    },
+    frontmatter: normalizeFrontmatter(frontmatter),
   }
 }
 
