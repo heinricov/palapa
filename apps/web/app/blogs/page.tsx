@@ -1,10 +1,10 @@
-import BlogHero from "@/components/blogs/blog-hero"
 import React from "react"
+import { MdxReading } from "@workspace/ui/mdx/mdx-reading"
 
 export default function page() {
   return (
-    <>
-      <BlogHero />
-    </>
+    <main className="mx-auto flex w-full max-w-7xl justify-center">
+      <MdxReading className="w-full" />
+    </main>
   )
 }

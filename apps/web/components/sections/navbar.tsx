@@ -14,6 +14,7 @@ import {
   FaSquareFacebook,
   FaLinkedin,
 } from "react-icons/fa6"
+import { FaYoutube } from "react-icons/fa"
 
 const menuItems = [
   { name: "Home", href: "/" },
@@ -105,7 +106,7 @@ export default function Navbar() {
                   <FaInstagram />
                   <FaXTwitter />
                   <FaSquareFacebook />
-                  <FaLinkedin />
+                  <FaYoutube />
                 </div>
                 <div className="hidden lg:block">
                   <ButtonTheme />

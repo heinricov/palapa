@@ -8,6 +8,7 @@ import {
   FaSquareFacebook,
   FaLinkedin,
 } from "react-icons/fa6"
+import { FaYoutube } from "react-icons/fa"
 
 const links = [
   {
@@ -70,7 +71,7 @@ export default function Footer() {
               <FaInstagram />
               <FaXTwitter />
               <FaSquareFacebook />
-              <FaLinkedin />
+              <FaYoutube />
             </div>
             <div className="order-first flex flex-wrap gap-x-6 gap-y-4 md:order-last">
               {links.map((link, index) => (
