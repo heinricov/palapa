@@ -23,6 +23,8 @@ const menuItems = [
 
 export default function Navbar() {
   const [menuState, setMenuState] = React.useState(false)
+  const closeMenu = () => setMenuState(false)
+
   return (
     <header>
       <nav
@@ -35,6 +37,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 aria-label="home"
+                onClick={closeMenu}
                 className="flex items-center gap-2"
               >
                 <Image src={microvLogo} alt="Palapa" width={28} height={28} />
@@ -81,10 +84,11 @@ export default function Navbar() {
             <div className="mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
+                  {menuItems.map((item) => (
+                    <li key={item.href}>
                       <Link
                         href={item.href}
+                        onClick={closeMenu}
                         className="block text-muted-foreground duration-150 hover:text-accent-foreground"
                       >
                         <span>{item.name}</span>
@@ -107,7 +111,7 @@ export default function Navbar() {
                   <ButtonTheme />
                 </div>
                 <Button asChild variant="default" size="sm">
-                  <Link href="#">
+                  <Link href="#" onClick={closeMenu}>
                     <span>Login</span>
                   </Link>
                 </Button>
