@@ -16,6 +16,11 @@ import {
   AlertTitle,
 } from "@workspace/ui/components/alert"
 import { MdxAside } from "@workspace/ui/mdx/mdx-aside"
+import { MdxBreadcrumb } from "@workspace/ui/mdx/mdx-breadcrumb"
+import {
+  MdxPagination,
+  MdxPaginationPage,
+} from "@workspace/ui/mdx/mdx-pagination"
 
 interface MdxReadingProps {
   className?: string
@@ -66,6 +71,7 @@ export const MdxReading = ({ className }: MdxReadingProps) => {
 
   return (
     <section className={cn("mx-auto w-full max-w-7xl px-6 py-32", className)}>
+      <MdxBreadcrumb />
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-20 lg:flex-row lg:items-start lg:justify-center">
         <article className="w-full max-w-3xl min-w-0">
           <div>
@@ -229,6 +235,10 @@ export const MdxReading = ({ className }: MdxReadingProps) => {
               Jokester.
             </p>
           </section>
+          <div className="mt-8 flex w-full flex-col justify-end gap-4">
+            <MdxPaginationPage />
+            <MdxPagination />
+          </div>
         </article>
         <MdxAside />
       </div>
