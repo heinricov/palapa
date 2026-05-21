@@ -25,19 +25,20 @@ function resolveContentDir(targetDir: string) {
   return path.join(process.cwd(), "mdx-content", normalized)
 }
 
-/** Maps `images/foo.jpeg` (under apps/web/images) to `/images/foo.jpeg` (public URL). */
+/** Maps `images/foo.jpeg` (apps/web/images) to `/images/foo.jpeg` served from public/. */
 function resolveMdxImage(image: string): string {
   if (!image || /^https?:\/\//i.test(image)) return image
 
   const relative = image.replace(/^\/+/, "")
   const publicPath = path.join(process.cwd(), "public", relative)
+  const sourcePath = path.join(process.cwd(), relative)
 
-  if (fs.existsSync(publicPath)) {
-    return `/${relative}`
+  if (fs.existsSync(sourcePath) && !fs.existsSync(publicPath)) {
+    fs.mkdirSync(path.dirname(publicPath), { recursive: true })
+    fs.copyFileSync(sourcePath, publicPath)
   }
 
-  const sourcePath = path.join(process.cwd(), relative)
-  if (fs.existsSync(sourcePath)) {
+  if (fs.existsSync(publicPath)) {
     return `/${relative}`
   }
 
