@@ -1,13 +1,21 @@
+"use client"
+
 import { AlignLeft } from "lucide-react"
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
+
 import { cn } from "@workspace/ui/lib/utils"
 
-export const MdxAside = () => {
+import type { MdxHeading } from "@workspace/mdx/lib/types"
+
+interface MdxAsideProps {
+  headings: MdxHeading[]
+}
+
+export function MdxAside({ headings }: MdxAsideProps) {
   const [activeSection, setActiveSection] = useState<string | null>(null)
-  const sectionRefs = useRef<Record<string, HTMLElement>>({})
 
   useEffect(() => {
-    const sections = Object.keys(sectionRefs.current)
+    if (headings.length === 0) return
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
@@ -17,23 +25,21 @@ export const MdxAside = () => {
       })
     }
 
-    let observer: IntersectionObserver | null = new IntersectionObserver(
-      observerCallback
-    )
-
-    sections.forEach((sectionId) => {
-      const element = sectionRefs.current[sectionId]
-      if (element) {
-        observer?.observe(element)
-      }
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0,
     })
-  }, [])
 
-  const addSectionRef = (id: string, ref: HTMLElement | null) => {
-    if (ref) {
-      sectionRefs.current[id] = ref
-    }
-  }
+    headings.forEach(({ id }) => {
+      const element = document.getElementById(id)
+      if (element) observer.observe(element)
+    })
+
+    return () => observer.disconnect()
+  }, [headings])
+
+  if (headings.length === 0) return null
 
   return (
     <aside className="sticky top-32 hidden h-fit w-48 shrink-0 lg:block">
@@ -43,45 +49,21 @@ export const MdxAside = () => {
       </span>
       <nav className="mt-2 text-sm">
         <ul>
-          <li>
-            <a
-              href="#section1"
-              className={cn(
-                "block py-1 transition-colors duration-200",
-                activeSection === "section1"
-                  ? "font-medium text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              )}
-            >
-              How the Tax System Works
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section2"
-              className={cn(
-                "block py-1 transition-colors duration-200",
-                activeSection === "section2"
-                  ? "font-medium text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              )}
-            >
-              The People&apos;s Rebellion
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section3"
-              className={cn(
-                "block py-1 transition-colors duration-200",
-                activeSection === "section3"
-                  ? "font-medium text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              )}
-            >
-              The King&apos;s Plan
-            </a>
-          </li>
+          {headings.map((heading, index) => (
+            <li key={`${heading.id}-${index}`}>
+              <a
+                href={`#${heading.id}`}
+                className={cn(
+                  "block py-1 transition-colors duration-200",
+                  activeSection === heading.id
+                    ? "font-medium text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </aside>

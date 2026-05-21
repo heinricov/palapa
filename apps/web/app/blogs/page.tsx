@@ -1,10 +1,13 @@
-import React from "react"
-import { MdxReading } from "mdx"
+import { redirect } from "next/navigation"
 
-export default function page() {
-  return (
-    <main className="mx-auto flex w-full max-w-7xl justify-center">
-      <MdxReading className="w-full" />
-    </main>
-  )
+import { getMdxPosts } from "@workspace/mdx/lib/mdx-loader"
+
+export default function BlogsPage() {
+  const posts = getMdxPosts("/blogs")
+
+  if (posts[0]) {
+    redirect(posts[0].link)
+  }
+
+  return null
 }

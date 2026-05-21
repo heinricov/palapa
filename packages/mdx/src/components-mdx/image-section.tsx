@@ -1,13 +1,14 @@
-import React from "react"
+import type { ComponentPropsWithoutRef } from "react"
 
-export const ImageSection = () => {
+type MdxImageProps = ComponentPropsWithoutRef<"img">
+
+export function MdxImage({ alt, className, src, ...props }: MdxImageProps) {
   return (
-    <>
-      <img
-        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
-        alt="placeholder"
-        className="my-8 aspect-video w-full rounded-md object-cover"
-      />
-    </>
+    <img
+      alt={alt ?? ""}
+      className={`my-8 aspect-video w-full rounded-md object-cover ${className ?? ""}`}
+      src={src}
+      {...props}
+    />
   )
 }

@@ -7,6 +7,7 @@
       "mdx": ["../../packages/mdx/src/index.ts"],
       "mdx/*": ["../../packages/mdx/src/*"],
       "@workspace/mdx/*": ["../../packages/mdx/src/*"],
+      "@workspace/mdx/lib/*": ["../../packages/mdx/src/lib/*"],
       "@workspace/ui/*": ["../../packages/ui/src/*"]
     },
     "plugins": [

@@ -1,0 +1,105 @@
+import fs from "node:fs"
+import path from "node:path"
+
+import matter from "gray-matter"
+import { compileMDX } from "next-mdx-remote/rsc"
+
+import { resetMdxHeadingIds } from "@workspace/mdx/components-mdx/typograhpy"
+import { mdxComponents } from "@workspace/mdx/mdx-components"
+import type { MdxHeading, MdxPostFrontmatter, MdxPostMeta } from "@workspace/mdx/lib/types"
+import { getUniqueHeadingId } from "@workspace/mdx/lib/slugify"
+
+function resolveContentDir(targetDir: string) {
+  const normalized = targetDir.replace(/^\/+/, "")
+  return path.join(process.cwd(), "mdx-content", normalized)
+}
+
+export function getMdxSlugs(targetDir: string) {
+  const dir = resolveContentDir(targetDir)
+  return fs
+    .readdirSync(dir)
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => file.replace(/\.mdx$/, ""))
+}
+
+export function getMdxPosts(targetDir: string): MdxPostMeta[] {
+  const routeBase = targetDir.startsWith("/") ? targetDir : `/${targetDir}`
+  const slugs = getMdxSlugs(targetDir)
+
+  const posts = slugs.map((slug) => {
+    const filePath = path.join(resolveContentDir(targetDir), `${slug}.mdx`)
+    const { data } = matter(fs.readFileSync(filePath, "utf8"))
+    const frontmatter = data as MdxPostFrontmatter
+
+    return {
+      slug,
+      link: `${routeBase}/${slug}`,
+      frontmatter: {
+        ...frontmatter,
+        tags: [...new Set(frontmatter.tags ?? [])],
+        date: String(frontmatter.date),
+      },
+    }
+  })
+
+  return posts.sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  )
+}
+
+export function getMdxPost(targetDir: string, slug: string) {
+  const filePath = path.join(resolveContentDir(targetDir), `${slug}.mdx`)
+  const raw = fs.readFileSync(filePath, "utf8")
+  const { data, content } = matter(raw)
+  const frontmatter = data as MdxPostFrontmatter
+  const routeBase = targetDir.startsWith("/") ? targetDir : `/${targetDir}`
+
+  return {
+    slug,
+    link: `${routeBase}/${slug}`,
+    raw,
+    content,
+    frontmatter: {
+      ...frontmatter,
+      tags: [...new Set(frontmatter.tags ?? [])],
+      date: String(frontmatter.date),
+    },
+  }
+}
+
+export function extractHeadings(markdown: string): MdxHeading[] {
+  const headings: MdxHeading[] = []
+  const usedIds = new Map<string, number>()
+  const regex = /^##\s+(.+)$/gm
+  let match = regex.exec(markdown)
+
+  while (match) {
+    const text = match[1]?.trim() ?? ""
+    headings.push({ text, id: getUniqueHeadingId(text, usedIds) })
+    match = regex.exec(markdown)
+  }
+
+  return headings
+}
+
+export function getAdjacentPosts(posts: MdxPostMeta[], slug: string) {
+  const index = posts.findIndex((post) => post.slug === slug)
+
+  return {
+    prev: index > 0 ? posts[index - 1] : null,
+    next: index >= 0 && index < posts.length - 1 ? posts[index + 1] : null,
+  }
+}
+
+export async function compileMdxContent(markdown: string) {
+  resetMdxHeadingIds()
+
+  const { content } = await compileMDX({
+    source: markdown,
+    components: mdxComponents,
+  })
+
+  return content
+}
