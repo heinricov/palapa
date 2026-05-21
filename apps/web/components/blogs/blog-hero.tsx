@@ -1,4 +1,15 @@
 "use client"
+import * as React from "react"
+import Image from "next/image"
+import Autoplay from "embla-carousel-autoplay"
+import { Card, CardContent } from "@workspace/ui/components/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@workspace/ui/components/carousel"
 
 import { useEffect, useRef, useState } from "react"
 
@@ -6,7 +17,14 @@ import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 import { BlogsItems } from "./blogs-items"
 import BlogCategory from "./blog-category"
-import { blogPosts } from "./dummy-data"
+import { blogPosts, type BlogPost } from "./dummy-data"
+
+const DESCRIPTION_MAX_LENGTH = 160
+
+function truncateDescription(text: string, maxLength = DESCRIPTION_MAX_LENGTH) {
+  if (text.length <= maxLength) return text
+  return `${text.slice(0, maxLength).trimEnd()}…`
+}
 
 interface Content1Props {
   className?: string
@@ -50,30 +68,74 @@ export default function BlogHero({ className }: Content1Props) {
   }, [])
 
   return (
-    <section className={cn("mx-auto w-full max-w-7xl px-6 py-32", className)}>
+    <section className={cn("mx-auto w-full max-w-7xl px-6 py-20", className)}>
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-20 lg:flex-row lg:items-start lg:justify-center">
         <div className="w-full max-w-3xl min-w-0">
-          <div>
-            <Badge variant="outline">Kingdom Tales</Badge>
-            <h1 className="mt-3 text-3xl font-extrabold">The Great Joke Tax</h1>
-            <p className="mt-2 text-lg text-muted-foreground">
-              In a kingdom far away, where laughter once flowed freely, a
-              peculiar tale unfolded about a king who decided to tax the very
-              essence of joy itself - jokes and jest.
-            </p>
-            <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
-              alt="placeholder"
-              className="my-8 aspect-video w-full rounded-md object-cover"
-            />
-          </div>
-
+          <CarouselSection blogPosts={blogPosts} />
           <div className="flex flex-col gap-8">
+            <h2 className="text-start text-2xl font-medium tracking-[-0.04em] text-pretty sm:max-w-xl md:text-[2.75rem] md:leading-[1.2]">
+              Latest Articles
+            </h2>
             <BlogsItems blogPosts={blogPosts} />
           </div>
         </div>
+
         <BlogCategory />
       </div>
     </section>
+  )
+}
+
+export function CarouselSection({ blogPosts }: { blogPosts: BlogPost[] }) {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  )
+  const [activeIndex, setActiveIndex] = useState(0)
+  return (
+    <div className="mb-6 border-b pb-2">
+      <Carousel
+        plugins={[plugin.current]}
+        className="w-full"
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
+      >
+        <CarouselContent>
+          {blogPosts.map((post) => (
+            <CarouselItem key={post.title}>
+              <div>
+                {post.tags.map((tag) => (
+                  <Badge
+                    className="bg-indigo-500/10 text-indigo-500 dark:bg-indigo-500/15 dark:text-indigo-400"
+                    key={tag}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+                <h1 className="mt-3 text-xl font-extrabold md:text-3xl">
+                  {post.title}
+                </h1>
+                <p className="mt-2 line-clamp-3 text-lg text-muted-foreground">
+                  {truncateDescription(post.description)}
+                </p>
+                <div className="relative my-8 aspect-video w-full overflow-hidden rounded-md">
+                  <Image
+                    alt={post.title}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    src={post.image}
+                  />
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="hidden md:block" />
+        <CarouselNext className="hidden md:block" />
+      </Carousel>
+      <div className="text-center text-sm text-muted-foreground">
+        Slide {activeIndex + 1} of {blogPosts.length}
+      </div>
+    </div>
   )
 }

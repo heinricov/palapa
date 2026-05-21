@@ -1,4 +1,14 @@
-export const blogPosts = [
+export interface BlogPost {
+  author: string
+  tags: string[]
+  title: string
+  description: string
+  date: string
+  image: string
+  link: string
+}
+
+export const blogPosts: BlogPost[] = [
   {
     author: "John Doe",
     tags: ["React", "Server Components", "Performance"],
