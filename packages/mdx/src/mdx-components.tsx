@@ -3,6 +3,15 @@ import type { ComponentType } from "react"
 import { AlertSection } from "@workspace/mdx/components-mdx/alert-section"
 import { MdxImage } from "@workspace/mdx/components-mdx/image-section"
 import {
+  MdxCaption,
+  MdxTable,
+  MdxTbody,
+  MdxTd,
+  MdxTh,
+  MdxThead,
+  MdxTr,
+} from "@workspace/mdx/components-mdx/table-section"
+import {
   TypographyBlockquote,
   TypographyH1,
   TypographyH2,
@@ -29,5 +38,12 @@ export const mdxComponents: Record<string, ComponentType<Record<string, unknown>
   li: TypographyLi,
   blockquote: TypographyBlockquote,
   img: MdxImage,
+  table: MdxTable,
+  thead: MdxThead,
+  tbody: MdxTbody,
+  tr: MdxTr,
+  th: MdxTh,
+  td: MdxTd,
+  caption: MdxCaption,
   AlertSection,
 }

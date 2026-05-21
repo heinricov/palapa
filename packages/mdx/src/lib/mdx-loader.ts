@@ -6,8 +6,8 @@ import { compileMDX } from "next-mdx-remote/rsc"
 
 import { resetMdxHeadingIds } from "@workspace/mdx/components-mdx/typograhpy"
 import {
-  mdxMathRehypePlugins,
-  mdxMathRemarkPlugins,
+  mdxRehypePlugins,
+  mdxRemarkPlugins,
 } from "@workspace/mdx/lib/mdx-math-plugins"
 import { mdxComponents } from "@workspace/mdx/mdx-components"
 import type { MdxHeading, MdxPostFrontmatter, MdxPostMeta } from "@workspace/mdx/lib/types"
@@ -147,8 +147,8 @@ export async function compileMdxContent(markdown: string) {
     components: mdxComponents,
     options: {
       mdxOptions: {
-        remarkPlugins: mdxMathRemarkPlugins,
-        rehypePlugins: mdxMathRehypePlugins,
+        remarkPlugins: mdxRemarkPlugins,
+        rehypePlugins: mdxRehypePlugins,
       },
     },
   })
