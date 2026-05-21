@@ -3,15 +3,7 @@ import Image from "next/image"
 import { Badge } from "@workspace/ui/components/badge"
 import Link from "next/link"
 
-interface BlogPost {
-  title: string
-  description: string
-  date: string
-  author: string
-  tags: string[]
-  image: string
-  link: string
-}
+import type { BlogPost } from "./blogs-data"
 
 interface ItemCardProps {
   blogPosts: BlogPost[]
@@ -51,10 +43,10 @@ export function BlogsItems({ blogPosts, description = true }: ItemCardProps) {
                 </p>
               )}
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                {post.tags.map((tag) => (
+                {post.tags.map((tag, index) => (
                   <Badge
                     className="bg-indigo-500/10 text-indigo-500 dark:bg-indigo-500/15 dark:text-indigo-400"
-                    key={tag}
+                    key={`${post.slug}-${tag}-${index}`}
                   >
                     {tag}
                   </Badge>

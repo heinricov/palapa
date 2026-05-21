@@ -1,16 +1,16 @@
-import HeroSection from "@/components/sections/hero"
-import BlogCategorySection from "@/components/blogs/blog-category-section"
 import { InputSearch } from "@/components/input-search"
-import { blogPosts } from "@/components/blogs/dummy-data"
+import { getBlogPosts } from "@/components/blogs/blogs-data"
 import { Button } from "@workspace/ui/components/button"
 import { BlogsItems } from "@/components/blogs/blogs-items"
 import BlogHero from "@/components/blogs/blog-hero"
 
 export default function Page() {
+  const blogPosts = getBlogPosts()
+
   return (
     <>
       {/* <HeroSection /> */}
-      <BlogHero />
+      <BlogHero blogPosts={blogPosts} />
       {/* <BlogCategorySection /> */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         {/* Header */}

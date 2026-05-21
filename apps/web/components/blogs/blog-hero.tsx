@@ -18,7 +18,7 @@ import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 import { BlogsItems } from "./blogs-items"
 import BlogCategory from "./blog-category"
-import { blogPosts, type BlogPost } from "./dummy-data"
+import type { BlogPost } from "./blogs-data"
 
 const DESCRIPTION_MAX_LENGTH = 160
 
@@ -29,9 +29,10 @@ function truncateDescription(text: string, maxLength = DESCRIPTION_MAX_LENGTH) {
 
 interface Content1Props {
   className?: string
+  blogPosts: BlogPost[]
 }
 
-export default function BlogHero({ className }: Content1Props) {
+export default function BlogHero({ className, blogPosts }: Content1Props) {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const sectionRefs = useRef<Record<string, HTMLElement>>({})
 
@@ -127,10 +128,10 @@ export function CarouselSection({ blogPosts }: { blogPosts: BlogPost[] }) {
           {blogPosts.map((post) => (
             <CarouselItem key={post.title}>
               <div>
-                {post.tags.map((tag) => (
+                {post.tags.map((tag, index) => (
                   <Badge
                     className="bg-indigo-500/10 text-indigo-500 dark:bg-indigo-500/15 dark:text-indigo-400"
-                    key={tag}
+                    key={`${post.slug}-${tag}-${index}`}
                   >
                     {tag}
                   </Badge>
