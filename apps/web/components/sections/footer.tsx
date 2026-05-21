@@ -54,11 +54,11 @@ export default function Footer() {
                   Palapa
                 </span>
               </Link>
-              <div className="mx-auto flex gap-7 md:mx-0 md:hidden">
+              <div className="mx-auto flex items-center gap-7 md:mx-0 md:hidden">
                 <FaInstagram />
                 <FaXTwitter />
                 <FaSquareFacebook />
-                <FaLinkedin />
+                <FaYoutube className="size-6" />
               </div>
             </div>
             <span className="block text-center text-sm text-muted-foreground">
@@ -67,11 +67,11 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-end gap-6">
-            <div className="mx-auto hidden gap-7 md:mx-0 md:flex">
+            <div className="mx-auto hidden items-center gap-7 md:mx-0 md:flex">
               <FaInstagram />
               <FaXTwitter />
               <FaSquareFacebook />
-              <FaYoutube />
+              <FaYoutube className="size-6" />
             </div>
             <div className="order-first flex flex-wrap gap-x-6 gap-y-4 md:order-last">
               {links.map((link, index) => (

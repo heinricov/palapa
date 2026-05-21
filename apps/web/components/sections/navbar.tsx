@@ -51,7 +51,7 @@ export default function Navbar() {
                   <FaInstagram />
                   <FaXTwitter />
                   <FaSquareFacebook />
-                  <FaLinkedin />
+                  <FaYoutube className="size-6" />
                 </div>
                 <div className="lg:hidden">
                   <ButtonTheme />
@@ -102,18 +102,18 @@ export default function Navbar() {
                 <div className="hidden lg:block">
                   <InputSearch />
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="hidden items-center gap-2 md:flex">
                   <FaInstagram />
                   <FaXTwitter />
                   <FaSquareFacebook />
-                  <FaYoutube />
+                  <FaYoutube className="size-6" />
                 </div>
                 <div className="hidden lg:block">
                   <ButtonTheme />
                 </div>
                 <Button asChild variant="default" size="sm">
                   <Link href="#" onClick={closeMenu}>
-                    <span>Login</span>
+                    <span>Support</span>
                   </Link>
                 </Button>
               </div>
