@@ -4,12 +4,14 @@ import { InputSearch } from "@/components/input-search"
 import { blogPosts } from "@/components/blogs/dummy-data"
 import { Button } from "@workspace/ui/components/button"
 import { BlogsItems } from "@/components/blogs/blogs-items"
+import BlogHero from "@/components/blogs/blog-hero"
 
 export default function Page() {
   return (
     <>
-      <HeroSection />
-      <BlogCategorySection />
+      {/* <HeroSection /> */}
+      <BlogHero />
+      {/* <BlogCategorySection /> */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         {/* Header */}
         <div className="mb-4 flex flex-col items-center justify-between gap-4 md:flex-row">
