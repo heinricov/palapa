@@ -9,6 +9,17 @@ import { mdxComponents } from "@workspace/mdx/mdx-components"
 import type { MdxHeading, MdxPostFrontmatter, MdxPostMeta } from "@workspace/mdx/lib/types"
 import { getUniqueHeadingId } from "@workspace/mdx/lib/slugify"
 
+const PAGE_DELIMITER = /^====\s*$/m
+
+export function splitMdxPages(content: string): string[] {
+  const pages = content
+    .split(PAGE_DELIMITER)
+    .map((page) => page.trim())
+    .filter(Boolean)
+
+  return pages.length > 0 ? pages : [content]
+}
+
 function resolveContentDir(targetDir: string) {
   const normalized = targetDir.replace(/^\/+/, "")
   return path.join(process.cwd(), "mdx-content", normalized)
@@ -61,12 +72,17 @@ export function getMdxPost(targetDir: string, slug: string) {
     link: `${routeBase}/${slug}`,
     raw,
     content,
+    pages: splitMdxPages(content),
     frontmatter: {
       ...frontmatter,
       tags: [...new Set(frontmatter.tags ?? [])],
       date: String(frontmatter.date),
     },
   }
+}
+
+export function getMdxPageHref(basePath: string, page: number) {
+  return page <= 1 ? basePath : `${basePath}?page=${page}`
 }
 
 export function extractHeadings(markdown: string): MdxHeading[] {

@@ -4,7 +4,9 @@ export {
   compileMdxContent,
   extractHeadings,
   getAdjacentPosts,
+  getMdxPageHref,
   getMdxPost,
   getMdxPosts,
   getMdxSlugs,
+  splitMdxPages,
 } from "@workspace/mdx/lib/mdx-loader"

@@ -20,14 +20,20 @@ export function MdxPagination({ prevHref, nextHref }: MdxPaginationProps) {
           {prevHref ? (
             <PaginationPrevious href={prevHref} />
           ) : (
-            <PaginationPrevious aria-disabled className="pointer-events-none opacity-50" />
+            <PaginationPrevious
+              aria-disabled
+              className="pointer-events-none opacity-50"
+            />
           )}
         </PaginationItem>
         <PaginationItem>
           {nextHref ? (
             <PaginationNext href={nextHref} />
           ) : (
-            <PaginationNext aria-disabled className="pointer-events-none opacity-50" />
+            <PaginationNext
+              aria-disabled
+              className="pointer-events-none opacity-50"
+            />
           )}
         </PaginationItem>
       </PaginationContent>
@@ -38,17 +44,27 @@ export function MdxPagination({ prevHref, nextHref }: MdxPaginationProps) {
 interface MdxPaginationPageProps {
   current: number
   total: number
+  basePath: string
 }
 
-export function MdxPaginationPage({ current, total }: MdxPaginationPageProps) {
+export function MdxPaginationPage({
+  current,
+  total,
+  basePath,
+}: MdxPaginationPageProps) {
+  if (total <= 1) return null
+
   return (
-    <Pagination className="mx-0 ml-auto w-auto justify-end">
+    <Pagination className="mx-0 ml-auto w-auto items-center justify-end gap-2">
+      <span className="text-sm text-muted-foreground">page</span>
       <PaginationContent>
         {Array.from({ length: total }, (_, index) => {
           const page = index + 1
+          const href = page <= 1 ? basePath : `${basePath}?page=${page}`
+
           return (
             <PaginationItem key={page}>
-              <PaginationLink href="#" isActive={page === current}>
+              <PaginationLink href={href} isActive={page === current}>
                 {page}
               </PaginationLink>
             </PaginationItem>

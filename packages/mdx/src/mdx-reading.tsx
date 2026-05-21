@@ -16,20 +16,35 @@ import { MdxPagination, MdxPaginationPage } from "@workspace/mdx/mdx-pagination"
 interface MdxReadingProps {
   targetDir: string
   slug: string
+  page?: number
   className?: string
 }
 
 export async function MdxReading({
   targetDir,
   slug,
+  page = 1,
   className,
 }: MdxReadingProps) {
   const post = getMdxPost(targetDir, slug)
   const posts = getMdxPosts(targetDir)
   const { prev, next } = getAdjacentPosts(posts, slug)
-  const headings = extractHeadings(post.content)
-  const mdxContent = await compileMdxContent(post.content)
+  const totalPages = post.pages.length
+  const currentPage = Math.min(Math.max(page, 1), totalPages)
+  const pageContent = post.pages[currentPage - 1] ?? post.pages[0] ?? ""
+  const headings = extractHeadings(pageContent)
+  const mdxContent = await compileMdxContent(pageContent)
   const currentIndex = posts.findIndex((item: MdxPostMeta) => item.slug === slug)
+  const basePath = post.link
+
+  const prevPageHref =
+    currentPage > 1
+      ? currentPage === 2
+        ? basePath
+        : `${basePath}?page=${currentPage - 1}`
+      : undefined
+  const nextPageHref =
+    currentPage < totalPages ? `${basePath}?page=${currentPage + 1}` : undefined
 
   return (
     <section className={cn("mx-auto w-full max-w-7xl px-6 py-18", className)}>
@@ -40,12 +55,13 @@ export async function MdxReading({
           <div className="prose dark:prose-invert max-w-none">{mdxContent}</div>
           <div className="mt-8 flex w-full flex-col justify-end gap-4">
             <MdxPaginationPage
-              current={currentIndex + 1}
-              total={posts.length}
+              basePath={basePath}
+              current={currentPage}
+              total={totalPages}
             />
             <MdxPagination
-              nextHref={next?.link}
-              prevHref={prev?.link}
+              nextHref={nextPageHref ?? next?.link}
+              prevHref={prevPageHref ?? prev?.link}
             />
           </div>
         </article>
