@@ -1,7 +1,9 @@
 import { CalendarDays, Dot, User } from "lucide-react"
+import Image from "next/image"
 import { Badge } from "@workspace/ui/components/badge"
+import Link from "next/link"
 
-import type { BlogPost } from "@workspace/mdx/lib/get-blog-posts"
+import type { BlogPost } from "./types"
 
 interface ItemCardProps {
   blogPosts: BlogPost[]
@@ -16,17 +18,20 @@ const formatDate = (date: string) => {
   })
 }
 
-export function MdxItemContent({
-  blogPosts,
-  description = true,
-}: ItemCardProps) {
+export function BlogsItems({ blogPosts, description = true }: ItemCardProps) {
   return (
     <>
       {blogPosts.map((post) => (
-        <a href={post.link} key={post.title}>
+        <Link href={post.link} key={post.title}>
           <div className="flex flex-col gap-x-6 gap-y-4 rounded-xl bg-muted p-2.5 pb-4 transition-colors hover:bg-muted/50 sm:flex-row sm:items-center sm:pe-4 sm:pb-3">
             <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-lg bg-muted sm:aspect-square sm:h-40 sm:w-40">
-              <img alt={post.title} className="object-cover" src={post.image} />
+              <Image
+                alt={post.title}
+                className="object-cover"
+                fill
+                sizes="(max-width: 640px) 100vw, 160px"
+                src={post.image}
+              />
             </div>
             <div className="px-1 sm:px-0">
               <h3 className="text-xl font-medium tracking-[-0.015em]">
@@ -58,7 +63,7 @@ export function MdxItemContent({
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
     </>
   )

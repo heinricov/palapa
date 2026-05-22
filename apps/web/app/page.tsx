@@ -1,8 +1,8 @@
 import { InputSearch } from "@/components/input-search"
-import { getBlogPosts } from "@/components/blogs/blogs-data"
+import { getBlogPosts } from "@workspace/mdx/lib/get-blog-posts"
 import { Button } from "@workspace/ui/components/button"
-import { BlogsItems } from "@/components/blogs/blogs-items"
-import BlogHero from "@/components/blogs/blog-hero"
+import BlogHero from "@workspace/ui/blogs/blog-hero"
+import { BlogsItems } from "@workspace/ui/blogs/blogs-items"
 
 export default function Page() {
   const blogPosts = getBlogPosts()

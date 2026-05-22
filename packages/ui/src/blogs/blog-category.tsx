@@ -10,7 +10,7 @@ import {
   Scale,
 } from "lucide-react"
 import React from "react"
-import { InputSearch } from "../input-search"
+import { InputSearch } from "./input-search"
 
 const categories = [
   {

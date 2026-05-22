@@ -2,9 +2,17 @@
   "extends": "@workspace/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "paths": {
       "@workspace/mdx/*": ["./src/*"],
-      "@workspace/ui/*": ["../ui/src/*"]
+      "@workspace/ui/*": ["../ui/src/*"],
+      "@workspace/ui/blogs/blogs-items": ["../ui/src/blogs/blogs-items.tsx"],
+      "@workspace/ui/blogs/blog-hero": ["../ui/src/blogs/blog-hero.tsx"],
+      "@workspace/ui/blogs/blog-category": ["../ui/src/blogs/blog-category.tsx"],
+      "@workspace/ui/blogs/blog-category-section": ["../ui/src/blogs/blog-category-section.tsx"],
+      "@workspace/ui/blogs/input-search": ["../ui/src/blogs/input-search.tsx"],
+      "@workspace/ui/blogs/types": ["../ui/src/blogs/types.ts"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

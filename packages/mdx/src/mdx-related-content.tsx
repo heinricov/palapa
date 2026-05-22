@@ -1,5 +1,5 @@
 import { getRelatedBlogPosts } from "@workspace/mdx/lib/get-blog-posts"
-import { MdxItemContent } from "@workspace/mdx/mdx-item-content"
+import { BlogsItems } from "@workspace/ui/blogs/blogs-items"
 
 interface MdxRelatedContentProps {
   slugs: string[]
@@ -23,7 +23,7 @@ export function MdxRelatedContent({ slugs }: MdxRelatedContentProps) {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <MdxItemContent blogPosts={relatedPosts} description={false} />
+        <BlogsItems blogPosts={relatedPosts} description={false} />
       </div>
     </section>
   )

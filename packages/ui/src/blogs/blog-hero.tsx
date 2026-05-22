@@ -18,7 +18,7 @@ import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 import { BlogsItems } from "./blogs-items"
 import BlogCategory from "./blog-category"
-import type { BlogPost } from "./blogs-data"
+import type { BlogPost } from "./types"
 
 const DESCRIPTION_MAX_LENGTH = 160
 
