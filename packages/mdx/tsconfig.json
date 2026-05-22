@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "paths": {
       "@workspace/mdx/*": ["./src/*"],
+      "@workspace/mdx/lib/blog-post-filters": ["./src/lib/blog-post-filters.ts"],
       "@workspace/ui/*": ["../ui/src/*"],
       "@workspace/ui/blogs/blogs-items": ["../ui/src/blogs/blogs-items.tsx"],
       "@workspace/ui/blogs/blog-hero": ["../ui/src/blogs/blog-hero.tsx"],

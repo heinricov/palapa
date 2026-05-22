@@ -50,6 +50,24 @@ function resolveMdxImage(image: string): string {
   return image.startsWith("/") ? image : `/${relative}`
 }
 
+function normalizeDate(date: unknown): string {
+  if (date instanceof Date && !Number.isNaN(date.getTime())) {
+    return date.toISOString().slice(0, 10)
+  }
+
+  if (typeof date === "string") {
+    const isoMatch = date.match(/^(\d{4}-\d{2}-\d{2})/)
+    if (isoMatch?.[1]) return isoMatch[1]
+
+    const parsed = new Date(date)
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed.toISOString().slice(0, 10)
+    }
+  }
+
+  return String(date ?? "")
+}
+
 function normalizeRelatedContent(
   relatedContent: MdxPostFrontmatter["relatedContent"]
 ): string[] {
@@ -66,7 +84,7 @@ function normalizeFrontmatter(frontmatter: MdxPostFrontmatter): MdxPostFrontmatt
   return {
     ...frontmatter,
     tags: [...new Set(frontmatter.tags ?? [])],
-    date: String(frontmatter.date),
+    date: normalizeDate(frontmatter.date),
     image: resolveMdxImage(frontmatter.image),
     relatedContent: normalizeRelatedContent(frontmatter.relatedContent),
   }

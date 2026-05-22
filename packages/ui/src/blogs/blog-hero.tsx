@@ -12,8 +12,9 @@ import {
   CarouselPrevious,
 } from "@workspace/ui/components/carousel"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
+import { filterRecentBlogPosts } from "@workspace/mdx/lib/blog-post-filters"
 import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 import { BlogsItems } from "./blogs-items"
@@ -33,6 +34,10 @@ interface Content1Props {
 }
 
 export default function BlogHero({ className, blogPosts }: Content1Props) {
+  const recentBlogPosts = useMemo(
+    () => filterRecentBlogPosts(blogPosts, 1),
+    [blogPosts]
+  )
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const sectionRefs = useRef<Record<string, HTMLElement>>({})
 
@@ -78,10 +83,9 @@ export default function BlogHero({ className, blogPosts }: Content1Props) {
             <h2 className="text-start text-2xl font-medium tracking-[-0.04em] text-pretty sm:max-w-xl md:text-[2.75rem] md:leading-[1.2]">
               Latest Articles
             </h2>
-            <BlogsItems blogPosts={blogPosts} />
+            <BlogsItems blogPosts={recentBlogPosts} />
           </div>
         </div>
-
         <BlogCategory />
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { filterRecentBlogPosts } from "@workspace/mdx/lib/blog-post-filters"
 import { getMdxPosts } from "@workspace/mdx/lib/mdx-loader"
 
 const BLOG_TARGET_DIR = "/blogs"
@@ -31,6 +32,13 @@ function mapPostToBlogPost(
 export function getBlogPosts(): BlogPost[] {
   return getMdxPosts(BLOG_TARGET_DIR).map(mapPostToBlogPost)
 }
+
+/** Posts published today or within the last `daysBack` day(s) (default: 1). */
+export function getRecentBlogPosts(daysBack = 1): BlogPost[] {
+  return filterRecentBlogPosts(getBlogPosts(), daysBack)
+}
+
+export { filterRecentBlogPosts } from "@workspace/mdx/lib/blog-post-filters"
 
 /** Resolves related posts by MDX filename slug (without .mdx), preserving frontmatter order. */
 export function getRelatedBlogPosts(slugs: string[]): BlogPost[] {
