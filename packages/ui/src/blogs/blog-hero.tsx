@@ -14,7 +14,7 @@ import {
 
 import { useEffect, useMemo, useRef, useState } from "react"
 
-import { filterRecentBlogPosts } from "@workspace/mdx/lib/blog-post-filters"
+import { filterRecentBlogPosts } from "@workspace/ui/lib/blog-post-filters"
 import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 import { BlogsItems } from "./blogs-items"
