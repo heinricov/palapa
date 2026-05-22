@@ -5,6 +5,7 @@ export interface MdxPostFrontmatter {
   date: string
   image: string
   author: string
+  relatedContent?: string[]
 }
 
 export interface MdxPostMeta {

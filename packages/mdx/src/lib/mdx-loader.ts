@@ -49,12 +49,25 @@ function resolveMdxImage(image: string): string {
   return image.startsWith("/") ? image : `/${relative}`
 }
 
+function normalizeRelatedContent(
+  relatedContent: MdxPostFrontmatter["relatedContent"]
+): string[] {
+  if (!relatedContent) return []
+  if (Array.isArray(relatedContent)) {
+    return relatedContent.filter(
+      (slug): slug is string => typeof slug === "string" && slug.length > 0
+    )
+  }
+  return []
+}
+
 function normalizeFrontmatter(frontmatter: MdxPostFrontmatter): MdxPostFrontmatter {
   return {
     ...frontmatter,
     tags: [...new Set(frontmatter.tags ?? [])],
     date: String(frontmatter.date),
     image: resolveMdxImage(frontmatter.image),
+    relatedContent: normalizeRelatedContent(frontmatter.relatedContent),
   }
 }
 

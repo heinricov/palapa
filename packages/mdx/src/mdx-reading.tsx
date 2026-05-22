@@ -12,6 +12,7 @@ import { MdxAside, MdxAsideMobile } from "@workspace/mdx/mdx-aside"
 import { MdxBreadcrumb } from "@workspace/mdx/mdx-breadcrumb"
 import { MdxHeader } from "@workspace/mdx/mdx-header"
 import { MdxPagination, MdxPaginationPage } from "@workspace/mdx/mdx-pagination"
+import { MdxRelatedContent } from "@workspace/mdx/mdx-related-content"
 
 interface MdxReadingProps {
   targetDir: string
@@ -34,7 +35,9 @@ export async function MdxReading({
   const pageContent = post.pages[currentPage - 1] ?? post.pages[0] ?? ""
   const headings = extractHeadings(pageContent)
   const mdxContent = await compileMdxContent(pageContent)
-  const currentIndex = posts.findIndex((item: MdxPostMeta) => item.slug === slug)
+  const currentIndex = posts.findIndex(
+    (item: MdxPostMeta) => item.slug === slug
+  )
   const basePath = post.link
 
   const prevPageHref =
@@ -50,7 +53,7 @@ export async function MdxReading({
     <section className={cn("mx-auto w-full max-w-7xl px-6 py-18", className)}>
       <MdxBreadcrumb targetDir={targetDir} title={post.frontmatter.title} />
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-20 lg:flex-row lg:items-start lg:justify-center">
-        <article className="w-full min-w-0 max-w-3xl">
+        <article className="w-full max-w-3xl min-w-0">
           <MdxHeader frontmatter={post.frontmatter} />
           <div className="prose dark:prose-invert max-w-none">{mdxContent}</div>
           <div className="mt-8 flex w-full flex-col justify-end gap-4">
@@ -67,6 +70,7 @@ export async function MdxReading({
         </article>
         <MdxAside headings={headings} />
       </div>
+      <MdxRelatedContent slugs={post.frontmatter.relatedContent ?? []} />
       <MdxAsideMobile headings={headings} />
     </section>
   )
