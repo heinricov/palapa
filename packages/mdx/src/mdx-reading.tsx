@@ -52,8 +52,8 @@ export async function MdxReading({
   return (
     <section className={cn("mx-auto w-full max-w-7xl px-6 py-18", className)}>
       <MdxBreadcrumb targetDir={targetDir} title={post.frontmatter.title} />
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-20 lg:flex-row lg:items-start lg:justify-center">
-        <article className="w-full max-w-3xl min-w-0">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-32 lg:flex-row lg:items-start">
+        <article className="w-full max-w-5xl min-w-0">
           <MdxHeader frontmatter={post.frontmatter} />
           <div className="prose dark:prose-invert max-w-none">{mdxContent}</div>
           <div className="mt-8 flex w-full flex-col justify-end gap-4">

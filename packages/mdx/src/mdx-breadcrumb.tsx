@@ -16,7 +16,7 @@ export function MdxBreadcrumb({ targetDir, title }: MdxBreadcrumbProps) {
   const baseHref = targetDir.startsWith("/") ? targetDir : `/${targetDir}`
 
   return (
-    <div className="mx-auto mb-10 w-full max-w-5xl">
+    <div className="mt-3 mb-10 ml-auto w-full max-w-7xl md:mt-6">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

@@ -47,7 +47,7 @@ export default function Navbar() {
                 </span>
               </Link>
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2 md:hidden">
+                <div className="flex items-center gap-2 lg:hidden">
                   <FaInstagram />
                   <FaXTwitter />
                   <FaSquareFacebook />
@@ -102,7 +102,7 @@ export default function Navbar() {
                 <div className="hidden lg:block">
                   <InputSearch />
                 </div>
-                <div className="hidden items-center gap-2 md:flex">
+                <div className="hidden items-center gap-2 lg:flex">
                   <FaInstagram />
                   <FaXTwitter />
                   <FaSquareFacebook />

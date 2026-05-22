@@ -11,7 +11,7 @@ export function MdxRelatedContent({ slugs }: MdxRelatedContentProps) {
   if (relatedPosts.length === 0) return null
 
   return (
-    <section className="mx-auto max-w-5xl py-16">
+    <section className="ml-auto max-w-7xl py-16">
       <div className="mb-4 flex flex-col items-start justify-between gap-4 md:flex-row">
         <div>
           <h2 className="text-start text-2xl font-medium tracking-tight text-balance">
