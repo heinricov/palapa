@@ -163,6 +163,44 @@
     text-shadow: 0 0 1px rgb(245 240 230 / 0.5);
   }
 
+  .prose .katex-display .katex-html > .tag {
+    display: none;
+  }
+
+  /* Rumus multi-baris — semua baris rata kiri (bukan stagger/center per baris) */
+  .prose .mdx-math-multiline .katex-display {
+    text-align: left;
+  }
+
+  .prose .mdx-math-multiline .katex-display > .katex {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+  }
+
+  .prose .mdx-math-multiline .katex-display .katex-html {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .prose .mdx-math-multiline .katex-display .mtable {
+    margin-left: 0;
+    margin-right: auto;
+    text-align: left;
+    width: 100%;
+  }
+
+  .prose .mdx-math-multiline .katex-display .mtable .vlist-t {
+    text-align: left;
+  }
+
+  .prose .mdx-math-multiline .katex-display .mtable .vlist-r {
+    text-align: left;
+  }
+
   .prose .katex-display .katex * {
     color: inherit;
   }

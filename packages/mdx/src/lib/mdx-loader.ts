@@ -8,6 +8,7 @@ import { resetMdxHeadingIds } from "@workspace/mdx/components-mdx/typograhpy"
 import {
   mdxRehypePlugins,
   mdxRemarkPlugins,
+  normalizeDisplayMathInMarkdown,
 } from "@workspace/mdx/lib/mdx-math-plugins"
 import { mdxComponents } from "@workspace/mdx/mdx-components"
 import type { MdxHeading, MdxPostFrontmatter, MdxPostMeta } from "@workspace/mdx/lib/types"
@@ -156,7 +157,7 @@ export async function compileMdxContent(markdown: string) {
   resetMdxHeadingIds()
 
   const { content } = await compileMDX({
-    source: markdown,
+    source: normalizeDisplayMathInMarkdown(markdown),
     components: mdxComponents,
     options: {
       mdxOptions: {

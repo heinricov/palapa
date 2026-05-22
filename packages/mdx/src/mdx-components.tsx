@@ -2,6 +2,7 @@ import type { ComponentType } from "react"
 
 import { AlertSection } from "@workspace/mdx/components-mdx/alert-section"
 import { MdxImage } from "@workspace/mdx/components-mdx/image-section"
+import { MdxMathMultiline } from "@workspace/mdx/components-mdx/math-multiline"
 import {
   MdxCaption,
   MdxTable,
@@ -46,4 +47,5 @@ export const mdxComponents: Record<string, ComponentType<Record<string, unknown>
   td: MdxTd,
   caption: MdxCaption,
   AlertSection,
+  MdxMathMultiline,
 }
