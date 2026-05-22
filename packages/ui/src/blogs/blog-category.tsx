@@ -9,8 +9,6 @@ import {
   HeartPulse,
   Scale,
 } from "lucide-react"
-import React from "react"
-import { InputSearch } from "./input-search"
 
 const categories = [
   {
@@ -60,7 +58,6 @@ export default function BlogCategory() {
     <>
       <aside className="sticky top-32 w-full shrink-0 lg:max-w-sm">
         <h3 className="mb-2 text-xl font-medium tracking-tight">Categories</h3>
-        <InputSearch />
         <div className="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1">
           {categories.map((category) => (
             <div
